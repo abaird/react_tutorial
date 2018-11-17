@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function formatName(user) {
+        return user.firstName + ' ' + user.lastName;
+      }
+
+      class Welcome extends React.Component {
+        render() {
+          return <h1>Hello, {this.props.name}</h1>;
+        }
+      }
+
+      class Clock extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {date: new Date()};
+        }
+
+        componentDidMount() {
+          this.timerID = setInterval(
+            () => this.tick(),
+            1000
+          );
+        }
+
+        componentWillUnmount() {
+          clearInterval(this.timerID);
+        }
+
+        tick() {
+          this.setState({
+            date: new Date()
+          });
+        }
+
+        render() {
+          return <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+        }
+      }
+
+      const user = {
+       firstName: 'Alan',
+       lastName: 'Baird'
+      };
+
+      function tick() {
+        const element = (
+          <div>
+            <Welcome name={formatName(user)}/>
+            <Clock /> 
+          </div>
+        );
+        ReactDOM.render(element, document.getElementById('root'));
+      }
+    </script>
+  </body>
+</html>
